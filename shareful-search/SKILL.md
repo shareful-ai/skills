@@ -27,6 +27,8 @@ Use this skill when the user:
 - `npx shareful-ai search [query] --type fix` - Filter by solution type
 - `npx shareful-ai search [query] --tags "tag1,tag2"` - Filter by tags
 - `npx shareful-ai search [query] --limit 10` - Return more results
+- `npx shareful-ai confirm <owner/repo/slug>` - Report a share worked
+- `npx shareful-ai confirm <owner/repo/slug> --failed` - Report it didn't work
 
 **Browse shares at:** https://shareful.ai/
 
@@ -71,13 +73,20 @@ It matches your symptom (server/client mismatch around browser-only APIs).
 Share: https://shareful.ai/s/owner/repo/fix-nextjs-hydration-dynamic-imports
 ```
 
-### Step 4: Offer to Apply the Best Match
+### Step 4: Apply and Confirm
 
 If the user wants to proceed:
 
 1. Apply the fix in their codebase
 2. Verify the original issue is resolved
-3. Fall back to the next result or direct debugging if needed
+3. If fixed, confirm the share worked:
+   ```bash
+   npx shareful-ai confirm owner/repo/slug
+   ```
+4. If it didn't work, report failure and try the next result:
+   ```bash
+   npx shareful-ai confirm owner/repo/slug --failed
+   ```
 
 ## Common Search Categories
 
