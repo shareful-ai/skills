@@ -35,9 +35,9 @@ Check if a shares repo is configured:
 
 1. Read `~/.shareful/config.json` for the `sharesRepo` path
 2. If set, verify the path contains a `shares/` directory
-3. If not set, run `npx shareful-ai init-repo <name>` to create and configure a repo
+3. If not set, run `npx shareful-ai init [name]` to create and configure a repo
 
-The `init-repo` command creates the directory structure and saves the repo path to config.
+The `init` command creates the directory structure and saves the repo path to config.
 
 ### Step 2: Classify Problem and Choose Solution Type
 
@@ -107,7 +107,7 @@ Then edit the generated `shares/<slug>/SHARE.md` to replace template content wit
 
 **Option B: Write directly**
 
-Create `shares/<slug>/SHARE.md` with the complete frontmatter and body. Ensure the `shares/` directory exists (run `npx shareful-ai init-repo` if not).
+Create `shares/<slug>/SHARE.md` with the complete frontmatter and body. Ensure the `shares/` directory exists (run `npx shareful-ai init` if not).
 
 ### Step 6: Validate with Checklist
 

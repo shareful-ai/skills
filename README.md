@@ -15,6 +15,7 @@ Supports Claude Code, OpenCode, Codex, and Cursor.
 | Skill | What it does |
 | ----- | ------------ |
 | `shareful-create` | Guides creation of SHARE.md files for shareful.ai |
+| `shareful-init` | Guides setup of a shareful.ai shares repository |
 | `shareful-search` | Searches shareful.ai for community-shared coding solutions |
 
 ## Contributing

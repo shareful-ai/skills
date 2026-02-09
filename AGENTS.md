@@ -4,6 +4,7 @@
 
 - `skills/` holds each skill in its own folder (kebab-case). Each skill has a `SKILL.md` file with YAML frontmatter (`name`, `description`) and Markdown guidance.
   - `shareful-create/` -- guides creation of SHARE.md files, includes reference files in `references/`.
+  - `shareful-init/` -- guides setup of a shareful.ai shares repository.
   - `shareful-search/` -- searches shareful.ai for community-shared coding solutions.
 - Top-level files: `README.md` (overview and install docs), `LICENSE.md`.
 
