@@ -2,6 +2,14 @@
 
 Annotated examples of good and bad shares. Use these to calibrate quality when writing or reviewing a SHARE.md.
 
+## Contents
+
+- [Good Example: Fix Type (Prisma N+1 Queries)](#good-example-fix-type-prisma-n1-queries)
+- [Good Example: Pattern Type (TypeScript satisfies)](#good-example-pattern-type-typescript-satisfies)
+- [Bad Share Patterns](#bad-share-patterns)
+- [Section Length Guidelines](#section-length-guidelines)
+- [Pre-submission Quality Checklist](#pre-submission-quality-checklist)
+
 ## Good Example: Fix Type (Prisma N+1 Queries)
 
 Source: `starter-shares/shares/fix-prisma-n-plus-one-queries/SHARE.md`

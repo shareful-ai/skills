@@ -2,6 +2,14 @@
 
 Every SHARE.md requires exactly four sections in this order: Problem, Solution, Why It Works, Context. The body (everything after the frontmatter `---`) must be under 300 lines total. Aim for 60-150 lines.
 
+## Contents
+
+- [1. Problem](#1-problem)
+- [2. Solution](#2-solution)
+- [3. Why It Works](#3-why-it-works)
+- [4. Context](#4-context)
+- [Section Length Guidelines](#section-length-guidelines)
+
 ## 1. Problem
 
 ### Purpose

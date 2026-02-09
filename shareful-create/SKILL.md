@@ -1,21 +1,11 @@
 ---
-name: create-share
-description: Guides creation of high-quality SHARE.md files for shareful.ai. Covers repo setup, frontmatter, problem/solution/explanation sections, and publishing. Use when the user wants to create a share, document a coding solution, contribute to shareful.ai, or run npx shareful share.
+name: shareful-create
+description: Guides creation of high-quality SHARE.md files for shareful.ai. Covers repo setup, frontmatter, required sections, and validation. Use when the user wants to create a share, document a coding solution, contribute to shareful.ai, or run npx shareful-ai create.
 ---
 
-# Create Share
+# Shareful Create
 
-Create a high-quality SHARE.md file that documents a coding solution for shareful.ai. Shares are single Markdown files with YAML frontmatter and four required sections.
-
-## When to Use
-
-Activate this skill when the user:
-
-- Asks to create, write, or contribute a share
-- Says "let's share this solution" or "this should be a share"
-- Has just solved a problem and wants to document it
-- Wants to run `npx shareful share` with high-quality content
-- Asks for help writing a SHARE.md file
+Create SHARE.md files that follow shareful.ai quality standards from first draft through validation.
 
 ## Reference Files
 
@@ -24,33 +14,34 @@ Activate this skill when the user:
 | `references/frontmatter-guide.md` | Writing or reviewing frontmatter fields |
 | `references/writing-sections.md` | Writing the four body sections |
 | `references/quality-examples.md` | Calibrating quality or reviewing a draft share |
+| `references/validation-checklist.md` | Final validation pass before finishing |
 
-## Progress Checklist
+## Creation Workflow
 
 Copy this checklist to track progress:
 
 ```text
-- [ ] Step 0: Ensure shares repo exists
-- [ ] Step 1: Identify the problem and choose solution type
-- [ ] Step 2: Write frontmatter
-- [ ] Step 3: Write the four body sections
-- [ ] Step 4: Create the file
-- [ ] Step 5: Validate
+- [ ] Step 1: Ensure shares repo context exists
+- [ ] Step 2: Classify the problem and choose solution type
+- [ ] Step 3: Draft frontmatter
+- [ ] Step 4: Draft the required body sections
+- [ ] Step 5: Create SHARE.md
+- [ ] Step 6: Validate with checklist
 ```
 
-## Step 0: Ensure Shares Repo Exists
+### Step 1: Ensure Shares Repo Context Exists
 
 Check if a shares repo is configured:
 
-1. Read `~/.config/shareful/config.json` for the `sharesRepo` path
+1. Read `~/.shareful/config.json` for the `sharesRepo` path
 2. If set, verify the path contains a `shares/` directory
-3. If not set, run `npx shareful init <name>` to create and configure a repo
+3. If not set, run `npx shareful-ai init-repo <name>` to create and configure a repo
 
-The `init` command creates the directory structure and saves the repo path to config.
+The `init-repo` command creates the directory structure and saves the repo path to config.
 
-## Step 1: Identify the Problem and Choose Solution Type
+### Step 2: Classify Problem and Choose Solution Type
 
-Determine what the user solved and categorize it:
+Determine what was solved and choose the correct `solution_type`:
 
 | Type | Use when | Title convention |
 |------|----------|-----------------|
@@ -62,7 +53,7 @@ Determine what the user solved and categorize it:
 
 Most shares are `fix` type. Use `pattern` only when the solution generalizes beyond a single error.
 
-## Step 2: Write Frontmatter
+### Step 3: Draft Frontmatter
 
 Read [references/frontmatter-guide.md](references/frontmatter-guide.md) for the complete schema and examples.
 
@@ -79,7 +70,7 @@ created: 2026-02-08                     # YYYY-MM-DD
 environment:                            # optional but recommended
   language: typescript
   framework: nextjs
-  version: "14+"
+  version: "15+"
 ---
 ```
 
@@ -89,7 +80,7 @@ Key rules:
 - Problem field should include the error message or symptom for searchability
 - Tags should cover: primary technology, problem domain, and 1-2 descriptors
 
-## Step 3: Write the Four Body Sections
+### Step 4: Draft the Required Body Sections
 
 Read [references/writing-sections.md](references/writing-sections.md) for templates and guidance.
 
@@ -104,43 +95,40 @@ All four sections are required:
 
 The body must be under 300 lines total. Aim for 60-150 lines.
 
-## Step 4: Create the File
+### Step 5: Create SHARE.md
 
 **Option A: Use the CLI**
 
 ```bash
-npx shareful share --title "Fix Prisma N+1 queries" --tags "prisma,database,performance" --type fix --problem "Prisma makes hundreds of queries when loading related data"
+npx shareful-ai create --title "Fix Prisma N+1 queries" --tags "prisma,database,performance" --type fix --problem "Prisma makes hundreds of queries when loading related data"
 ```
 
 Then edit the generated `shares/<slug>/SHARE.md` to replace template content with real content.
 
 **Option B: Write directly**
 
-Create `shares/<slug>/SHARE.md` with the complete frontmatter and body. Ensure the `shares/` directory exists (run `npx shareful init` if not).
+Create `shares/<slug>/SHARE.md` with the complete frontmatter and body. Ensure the `shares/` directory exists (run `npx shareful-ai init-repo` if not).
 
-## Step 5: Validate and Publish
+### Step 6: Validate with Checklist
 
-After creating the file, verify:
+Read [references/validation-checklist.md](references/validation-checklist.md) and run all checks.
 
-1. All required frontmatter fields present and within character limits
-2. Slug matches the parent directory name
-3. All four sections present: `## Problem`, `## Solution`, `## Why It Works`, `## Context`
-4. Body under 300 lines
-5. Code blocks have language labels (e.g., ```typescript not just ```)
-6. No placeholder content (`<!-- ... -->` comments or TODO markers)
+Expected output after this step:
 
-To validate and publish, run `npx shareful share` with no flags. This validates all shares, updates `shareful.json`, commits, pushes, and notifies the shareful.ai indexer.
+- A complete `shares/<slug>/SHARE.md` file
+- Frontmatter and section structure validated
+- No placeholder content
 
-## Common Mistakes
+## Anti-patterns
 
 - Writing a vague problem field ("Something is broken") instead of including the actual error message
 - Using Why It Works to repeat the solution instead of explaining the underlying mechanism
 - Forgetting language labels on code blocks
-- Making the title too generic ("Fix TypeScript error") instead of specific ("Fix TypeScript module augmentation for extending third-party types")
+- Making the title too generic ("Fix TypeScript error") instead of specific ("Fix TypeScript module augmentation for third-party types")
 - Slug not matching the directory name
 - Exceeding 300 lines in the body
 - Using `pattern` type for what is actually a `fix` (pattern is for reusable architecture, not bug fixes)
 
 ## Related Skills
 
-- `find-shares` for discovering existing shares on shareful.ai
+- `shareful-search` for discovering existing shares on shareful.ai

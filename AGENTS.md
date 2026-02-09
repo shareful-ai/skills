@@ -3,8 +3,8 @@
 ## Project Structure & Module Organization
 
 - `skills/` holds each skill in its own folder (kebab-case). Each skill has a `SKILL.md` file with YAML frontmatter (`name`, `description`) and Markdown guidance.
-  - `create-share/` -- guides creation of SHARE.md files, includes reference files in `references/`.
-  - `find-shares/` -- searches shareful.ai for community-shared coding solutions.
+  - `shareful-create/` -- guides creation of SHARE.md files, includes reference files in `references/`.
+  - `shareful-search/` -- searches shareful.ai for community-shared coding solutions.
 - Top-level files: `README.md` (overview and install docs), `LICENSE.md`.
 
 ## Install / Development Commands

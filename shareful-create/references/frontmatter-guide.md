@@ -2,6 +2,12 @@
 
 Complete reference for SHARE.md YAML frontmatter fields. All validation constraints match the shareful CLI (`share-parser.ts`).
 
+## Contents
+
+- [Required Fields](#required-fields)
+- [Optional Fields](#optional-fields)
+- [Complete Example](#complete-example)
+
 ## Required Fields
 
 ### `title`
