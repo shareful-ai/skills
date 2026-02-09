@@ -9,6 +9,7 @@ Effective patterns for mining Claude Code conversations using ccs. Organized by 
 - [Prioritization](#prioritization)
 - [Batch Processing](#batch-processing)
 
+
 ## Recommended Search Sequence
 
 Run searches in this order for best coverage. Each category surfaces different types of shareable problems.
@@ -74,7 +75,27 @@ ccs -s "websocket" -j -n 20
 ccs -s "environment variable" -j -n 20
 ```
 
-### 5. Full History Scan
+### 5. Quality Signal Searches
+
+These find breakthrough moments and difficulty indicators. They surface conversations where the user solved a hard problem, which often produce the most valuable shares.
+
+```bash
+# Breakthrough markers
+ccs -s "finally working" -j -n 20
+ccs -s "that fixed it" -j -n 20
+ccs -s "that worked" -j -n 20
+
+# Difficulty indicators
+ccs -s "still not working" -j -n 20
+ccs -s "tried everything" -j -n 20
+ccs -s "hours" -j -n 20
+ccs -s "keeps failing" -j -n 20
+ccs -s "why is" -j -n 20
+```
+
+When a quality signal search returns results, the prompt itself is a marker -- look at the surrounding conversation for the actual problem and fix to evaluate.
+
+### 6. Full History Scan
 
 When keyword searches miss things, scan recent prompts manually:
 
@@ -104,6 +125,17 @@ Examples of strong candidates:
 "NeonDbError: op ANY/ALL (array) requires array on right side"
 ```
 
+### High-Value Candidates (Prioritize These)
+
+A prompt is a high-value candidate when it shows:
+
+- **Breakthrough language** -- "finally", "that fixed it", "been struggling with this"
+- **Multiple failed attempts** -- references to things the user already tried
+- **Cross-system interaction** -- problem involves two or more tools/libraries interacting
+- **Migration or version context** -- upgrading from version X to Y
+
+These prompts often score 5+ on the recall scoring rubric.
+
 ### Weak Candidates (Skip These)
 
 - Generic prompts: "review my code", "test this", "help me"
@@ -116,11 +148,12 @@ Examples of strong candidates:
 
 When you have many candidates, prioritize by:
 
-1. **Framework migration issues** -- Tailwind v3->v4, Prisma 6->7, Next.js upgrades. Many developers hit these simultaneously.
-2. **Common deployment errors** -- CI/CD failures, Vercel/Docker issues. High search volume.
-3. **Framework gotchas** -- hydration errors, CORS in dev, missing types. Developers hit these repeatedly.
-4. **Security patterns** -- SSRF, XSS prevention. High impact when found.
-5. **Configuration fixes** -- ESLint, TypeScript, build tool configs. Tedious to debug from scratch.
+1. **Breakthrough solutions** -- Conversations where the user expressed strong relief or gratitude after solving a hard problem. These had the highest time investment and produce the most valuable shares.
+2. **Framework migration issues** -- Tailwind v3->v4, Prisma 6->7, Next.js upgrades. Many developers hit these simultaneously.
+3. **Common deployment errors** -- CI/CD failures, Vercel/Docker issues. High search volume.
+4. **Framework gotchas** -- hydration errors, CORS in dev, missing types. Developers hit these repeatedly.
+5. **Security patterns** -- SSRF, XSS prevention. High impact when found.
+6. **Configuration fixes** -- ESLint, TypeScript, build tool configs. Tedious to debug from scratch.
 
 ## Batch Processing
 

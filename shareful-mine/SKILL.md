@@ -1,21 +1,11 @@
 ---
 name: shareful-mine
-description: Mines past Claude Code conversations for shareable coding solutions using claude-code-search (ccs). Searches conversation history for errors, fixes, and workarounds, then creates SHARE.md files following shareful.ai conventions. Use when the user wants to "mine conversations for shares", "populate my shares repo", "find problems to share", or "solve the cold start problem".
+description: Mines past Claude Code conversations for the best shareable coding solutions using claude-code-search (ccs). Uses quality signals -- breakthrough markers, difficulty indicators, and community value scoring -- to surface high-recall content from conversation history. Use when the user wants to "mine conversations for shares", "populate my shares repo", "recall my best work", "find my best solved problems", or "solve the cold start problem".
 ---
 
 # Shareful Mine
 
-Mine past Claude Code conversations for problems worth sharing on shareful.ai. This solves the cold start problem -- every developer already solves real problems daily, and those solutions are sitting in conversation history waiting to be shared.
-
-## When to Use This Skill
-
-Use this skill when the user:
-
-- Wants to populate their shares repo from past work
-- Asks "what problems have I solved that others would hit?"
-- Wants to mine their Claude Code history for shareable solutions
-- Mentions the cold start problem for shareful.ai
-- Wants to batch-create shares from real problems
+Mine past Claude Code conversations for the best problems worth sharing on shareful.ai. Uses quality signal detection -- breakthrough moments, difficulty tiers, and community value scoring -- to surface your highest-value solved problems. This solves the cold start problem -- every developer already solves real problems daily, and the best solutions are sitting in conversation history waiting to be shared.
 
 ## Prerequisites
 
@@ -39,6 +29,7 @@ The user must also have a shares repo set up. If not, run `npx shareful-ai init`
 |------|-----------|
 | [references/ccs-commands.md](references/ccs-commands.md) | Looking up ccs CLI syntax, flags, or output format |
 | [references/search-strategies.md](references/search-strategies.md) | Choosing what to search for and evaluating candidates |
+| [references/recall-scoring.md](references/recall-scoring.md) | Scoring candidates by quality signals (breakthrough, difficulty, community value) |
 
 ## Mining Workflow
 
@@ -47,7 +38,7 @@ Copy this checklist to track progress:
 ```text
 - [ ] Step 1: Check existing shares to avoid duplicates
 - [ ] Step 2: Run discovery searches with ccs
-- [ ] Step 3: Filter and rank candidates
+- [ ] Step 3: Score and rank candidates
 - [ ] Step 4: Create SHARE.md files
 - [ ] Step 5: Validate with npx shareful-ai check
 ```
@@ -82,15 +73,31 @@ ccs -s "typescript" -j -n 20
 
 Read [references/search-strategies.md](references/search-strategies.md) for the full list of recommended searches and how to evaluate results.
 
-### Step 3: Filter and Rank Candidates
+Beyond error and framework searches, run quality signal searches to find breakthrough moments and hard problems. These often surface the highest-value share candidates:
 
-From the search results, identify prompts that describe specific, reproducible problems. A good candidate has:
+```bash
+# Breakthrough markers -- user prompts after solving a hard problem
+ccs -s "finally working" -j -n 20
+ccs -s "that fixed it" -j -n 20
+ccs -s "that worked" -j -n 20
 
-1. **A specific error message or symptom** -- not "help me with my code"
-2. **A clear resolution** -- the conversation solved it
-3. **Community value** -- other developers would encounter this
-4. **Generalizability** -- the fix is not specific to one project's business logic
-5. **Novelty** -- not already covered by an existing share
+# Difficulty indicators -- prompts suggesting deep debugging
+ccs -s "still not working" -j -n 20
+ccs -s "tried everything" -j -n 20
+ccs -s "hours" -j -n 20
+```
+
+Read [references/recall-scoring.md](references/recall-scoring.md) for the complete list of quality signal searches and how to score candidates.
+
+### Step 3: Score and Rank Candidates
+
+Apply the recall scoring system to rank candidates. Each candidate is scored on three dimensions:
+
+1. **Breakthrough signal** (0-2 pts) -- Did the user's prompts indicate a hard-won solution?
+2. **Problem quality** (0-3 pts) -- Is the problem specific, reproducible, and well-described?
+3. **Community value** (0-3 pts) -- Would other developers encounter this and search for it?
+
+Total score ranges from 0-8. Prioritize candidates scoring 5+ and skip anything below 3. Read [references/recall-scoring.md](references/recall-scoring.md) for detailed scoring rubrics, difficulty tiers, and examples.
 
 Discard prompts that are:
 - Generic requests ("review my code", "test this", "explain this")
@@ -130,6 +137,8 @@ All shares must pass validation before committing. Fix any errors flagged by the
 | Fix clarity | Clear code change that resolves the error | Vague "try restarting" |
 | Frequency | Common framework gotcha or migration issue | One-off environment quirk |
 | Searchability | Error message is Google-able | No distinctive error string |
+| Breakthrough signal | "finally working after 3 hours" | "thanks" (generic) |
+| Problem difficulty | Multi-step debugging, config interaction | One-liner typo fix |
 
 ## Anti-patterns
 
@@ -138,6 +147,7 @@ All shares must pass validation before committing. Fix any errors flagged by the
 - **Over-mining** -- focus on quality over quantity; 10 great shares beat 50 mediocre ones
 - **Duplicating existing shares** -- always check the repo first
 - **Vague problems** -- if you cannot write a specific error message for the Problem section, skip it
+- **Mining only easy wins** -- prioritize hard problems (Tier 3-4) over trivial fixes; shares for simple issues add noise, not value
 
 ## Related Skills
 
