@@ -35,9 +35,11 @@ my-shares/
 - **`README.md`** -- repo overview with quick start instructions
 - **`example-share/SHARE.md`** -- template share to get started
 
-The command also initializes a git repository and saves the repo path to `~/.shareful/config.json`.
+The command also initializes a git repository with an initial commit and saves the repo path to `~/.shareful/config.json`.
 
 ## Setup Workflow
+
+**IMPORTANT**: You MUST complete all 3 steps. After pushing to GitHub, you MUST run `npx shareful-ai register` -- without it the repo will never appear on shareful.ai.
 
 ### Step 1: Create the Repository
 
@@ -45,7 +47,7 @@ The command also initializes a git repository and saves the repo path to `~/.sha
 npx shareful-ai init my-shares
 ```
 
-The name must be alphanumeric with dots, hyphens, or underscores (max 128 characters). Defaults to `shares` if not provided.
+The name must be alphanumeric with dots, hyphens, or underscores (max 128 characters). Defaults to `shares` if not provided. The command creates an initial git commit automatically.
 
 ### Step 2: Push to GitHub
 
@@ -62,21 +64,15 @@ git remote add origin git@github.com:username/my-shares.git
 git push -u origin main
 ```
 
-### Step 3: Create Your First Share
+### Step 3: Register for Indexing
 
-```bash
-npx shareful-ai create
-```
-
-This walks through creating a SHARE.md interactively -- prompting for title, problem description, solution type, and tags. The file is created in `shares/<slug>/SHARE.md`.
-
-### Step 4: Register for Indexing
-
-After pushing to GitHub, register the repo so solutions appear on shareful.ai:
+Immediately after pushing, register the repo. This is required -- the repo will not be indexed and shares will not be discoverable without it:
 
 ```bash
 npx shareful-ai register
 ```
+
+Optionally, create your first share with `npx shareful-ai create`.
 
 ## Name Validation Rules
 
